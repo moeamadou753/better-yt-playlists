@@ -6,6 +6,11 @@ import manifest from './manifest.json'
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+      cors: {
+        origin: '*'
+      }
+  },
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] }),
