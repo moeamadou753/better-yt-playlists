@@ -1,6 +1,8 @@
 import { createRoot } from 'react-dom/client'
 import { Overlay } from './overlay/Overlay'
 import overlayStyles from './overlay/overlay.css?inline'
+import { startInjector } from './injector/ButtonInjector'
+
 
 function mount() {
   const existing = document.getElementById('yt-playlist-ui-root')
@@ -25,6 +27,8 @@ function mount() {
     <Overlay onRegisterToggle={(fn) => { overlayRef.toggle = fn }} />
   )
 
+  startInjector()
+
   // Keyboard shortcut lives here, not in the component
   window.addEventListener('keydown', (e: KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === 'f') {
@@ -33,10 +37,7 @@ function mount() {
     }
   })
 
-  // Toolbar icon click
-  chrome.runtime.onMessage.addListener((message) => {
-    if (message.type === 'TOGGLE_OVERLAY') overlayRef.toggle()
-  })
+  window.addEventListener('yt-playlist-toggle', () => overlayRef.toggle())
 }
 
 mount()

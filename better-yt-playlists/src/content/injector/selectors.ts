@@ -27,3 +27,12 @@ export function findActionRow(): Element | null {
   }
   return null
 }
+
+export function findOverflowSaveItem(): Element | null {
+  const items = document.querySelectorAll('ytd-menu-service-item-renderer')
+  for (const item of items) {
+    const label = item.querySelector('yt-formatted-string')
+    if (label?.textContent?.trim() === 'Save') return item
+  }
+  return null
+}

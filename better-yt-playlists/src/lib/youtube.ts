@@ -86,3 +86,38 @@ export async function fetchPlaylistItems(
 
   return items
 }
+
+export function getCurrentVideoId(): string | null {
+  const params = new URLSearchParams(window.location.search)
+  return params.get('v')
+}
+
+export async function addVideoToPlaylist(
+  playlistId: string,
+  videoId: string,
+  token: string
+): Promise<void> {
+  const res = await fetch(
+    'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet',
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        snippet: {
+          playlistId,
+          resourceId: {
+            kind: 'youtube#video',
+            videoId,
+          },
+        },
+      }),
+    }
+  )
+  if (!res.ok) {
+    const err = await res.json()
+    throw new Error(err.error?.message ?? `API error: ${res.status}`)
+  }
+}
