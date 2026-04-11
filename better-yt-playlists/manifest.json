@@ -21,7 +21,7 @@
     "default_popup": "src/popup/index.html"
   },
   "oauth2": {
-    "client_id": "better-yt-playlists-492912.apps.googleusercontent.com",
+    "client_id": "639571997729-31hdkv0akbqupgfok23go7t82166hkd1.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/youtube.readonly"]
   }
 }
