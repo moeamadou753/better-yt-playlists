@@ -1,5 +1,4 @@
-// src/content/overlay/Overlay.tsx
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { getAuthToken } from '../../lib/auth'
 import { fetchAllPlaylists, fetchPlaylistItems } from '../../lib/youtube'
 import { fuzzySearchPlaylists, fuzzySearchItems } from '../../lib/fuzzy'
@@ -20,9 +19,39 @@ export function Overlay({ onRegisterToggle }: OverlayProps) {
   const [activePlaylist, setActivePlaylist] = useState<YTPlaylist | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  // Register toggle with parent once — ref-stable, no effect needed
-  onRegisterToggle(() => setVisible(v => !v))
+  onRegisterToggle(() => {
+    if (!visible) handleOpen()
+    else setVisible(false)
+  })
+
+  // Reclaim focus whenever YouTube tries to steal it
+  useEffect(() => {
+    if (!visible) return
+
+    const reclaimFocus = () => {
+      // Only reclaim if focus left our shadow DOM entirely
+      requestAnimationFrame(() => {
+        if (document.activeElement?.id === 'yt-playlist-ui-root' ||
+            !document.activeElement ||
+            document.activeElement === document.body) {
+          inputRef.current?.focus()
+        }
+      })
+    }
+
+    // focusout fires when focus leaves an element — catches YouTube stealing it
+    window.addEventListener('focusout', reclaimFocus)
+    return () => window.removeEventListener('focusout', reclaimFocus)
+  }, [visible])
+
+  // Focus input when overlay becomes visible
+  useEffect(() => {
+    if (visible) {
+      requestAnimationFrame(() => inputRef.current?.focus())
+    }
+  }, [visible])
 
   async function handleOpen() {
     setVisible(true)
@@ -55,22 +84,16 @@ export function Overlay({ onRegisterToggle }: OverlayProps) {
     }
   }
 
-  function handleBackdropKeyDown(e: React.KeyboardEvent) {
-    if (e.key === 'Escape') {
-      view === VIEW.ITEMS ? handleBack() : setVisible(false)
-    }
-  }
-
   function handleBack() {
     setView(VIEW.PLAYLISTS)
     setQuery('')
   }
 
-  // Register toggle to also trigger data load
-  onRegisterToggle(() => {
-    if (!visible) handleOpen()
-    else setVisible(false)
-  })
+  function handleBackdropKeyDown(e: React.KeyboardEvent) {
+    if (e.key === 'Escape') {
+      view === VIEW.ITEMS ? handleBack() : setVisible(false)
+    }
+  }
 
   if (!visible) return null
 
@@ -98,11 +121,11 @@ export function Overlay({ onRegisterToggle }: OverlayProps) {
 
         <div className="overlay-search-wrap">
           <input
+            ref={inputRef}
             className="overlay-search"
             placeholder={view === VIEW.PLAYLISTS ? 'Search playlists...' : 'Search videos...'}
             value={query}
             onChange={e => setQuery(e.target.value)}
-            autoFocus
           />
         </div>
 
