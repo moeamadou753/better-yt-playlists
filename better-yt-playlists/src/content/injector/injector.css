@@ -1,0 +1,115 @@
+.yt-playlist-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  height: 36px;
+  border-radius: 18px;
+  border: none;
+  background: #272727;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "Roboto", "Arial", sans-serif;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.yt-playlist-btn:hover { background: #3f3f3f; }
+
+.yt-playlist-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 999999;
+  background: #212121;
+  border: 1px solid #383838;
+  border-radius: 12px;
+  width: 320px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  font-family: "Roboto", "Arial", sans-serif;
+}
+
+.yt-playlist-dropdown-search {
+  padding: 10px 12px;
+  border-bottom: 1px solid #383838;
+}
+
+.yt-playlist-dropdown-search input {
+  width: 100%;
+  background: #181818;
+  border: 1px solid #383838;
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+.yt-playlist-dropdown-search input:focus {
+  border-color: #606060;
+}
+
+.yt-playlist-dropdown-list {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.yt-playlist-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.yt-playlist-dropdown-item:hover { background: #2f2f2f; }
+
+.yt-playlist-dropdown-item img {
+  width: 40px;
+  height: 30px;
+  border-radius: 3px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.yt-playlist-dropdown-item-title {
+  font-size: 13px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.yt-playlist-dropdown-item-count {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+.yt-playlist-dropdown-hint {
+  font-size: 13px;
+  color: #606060;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.yt-playlist-dropdown-success {
+  font-size: 13px;
+  color: #4caf50;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.yt-playlist-dropdown-error {
+  font-size: 13px;
+  color: #f55;
+  text-align: center;
+  padding: 20px 0;
+}
