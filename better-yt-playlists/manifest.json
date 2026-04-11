@@ -2,8 +2,11 @@
   "manifest_version": 3,
   "name": "Better YT Playlists",
   "version": "0.1.0",
-  "permissions": ["storage"],
-  "host_permissions": ["https://www.youtube.com/*", "https://www.googleapis.com/*"],
+  "permissions": ["storage", "identity"],
+  "host_permissions": [
+    "https://www.youtube.com/*", 
+    "https://www.googleapis.com/*"
+  ],
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*"],
@@ -16,5 +19,9 @@
   },
   "action": {
     "default_popup": "src/popup/index.html"
+  },
+  "oauth2": {
+    "client_id": "better-yt-playlists-492912.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/youtube.readonly"]
   }
 }
