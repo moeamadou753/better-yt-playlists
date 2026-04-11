@@ -1,17 +1,14 @@
 export async function getAuthToken(): Promise<string> {
   return new Promise((resolve, reject) => {
-    chrome.identity.getAuthToken({ interactive: true }, (token) => {
-      if (chrome.runtime.lastError || !token) {
-        reject(chrome.runtime.lastError?.message ?? 'Auth failed')
-      } else {
-        resolve(token)
-      }
+    chrome.runtime.sendMessage({ type: 'GET_AUTH_TOKEN' }, (response) => {
+      if (response?.error) reject(response.error)
+      else resolve(response.token)
     })
   })
 }
 
 export async function clearAuthToken(): Promise<void> {
   return new Promise((resolve) => {
-    chrome.identity.clearAllCachedAuthTokens(resolve)
+    chrome.runtime.sendMessage({ type: 'CLEAR_AUTH_TOKEN' }, () => resolve())
   })
 }
