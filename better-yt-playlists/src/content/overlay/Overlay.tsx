@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './overlay.css'
 
 export function Overlay() {
@@ -23,7 +23,18 @@ export function Overlay() {
   return (
     <div className="overlay-backdrop" onClick={() => setVisible(false)}>
       <div className="overlay-panel" onClick={e => e.stopPropagation()}>
-        <p>🎵 Playlist UI coming soon</p>
+        <div className="overlay-header">
+          <span>🎵 YT Playlist UI</span>
+          <button className="overlay-close" onClick={() => setVisible(false)}>✕</button>
+        </div>
+        <div className="overlay-body">
+          <input
+            className="overlay-search"
+            placeholder="Search playlist..."
+            autoFocus
+          />
+          <p className="overlay-hint">No playlist loaded yet</p>
+        </div>
       </div>
     </div>
   )

@@ -1,21 +1,76 @@
+/* src/content/overlay/overlay.css */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 .overlay-backdrop {
   position: fixed;
   inset: 0;
   z-index: 999999;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .overlay-panel {
   background: #0f0f0f;
+  border: 1px solid #272727;
   color: #fff;
   border-radius: 12px;
-  padding: 24px;
-  width: 600px;
+  width: 620px;
   max-height: 70vh;
-  overflow-y: auto;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.8);
-  font-family: system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 32px 96px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.overlay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #272727;
+  font-size: 14px;
+  font-weight: 600;
+  color: #aaa;
+}
+
+.overlay-close {
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.overlay-close:hover { background: #272727; color: #fff; }
+
+.overlay-body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.overlay-search {
+  width: 100%;
+  background: #181818;
+  border: 1px solid #272727;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+}
+
+.overlay-search:focus { border-color: #555; }
+
+.overlay-hint {
+  color: #555;
+  font-size: 13px;
+  text-align: center;
+  padding: 24px 0;
 }
