@@ -15,7 +15,7 @@
   color: #fff;
   border-radius: 12px;
   width: 620px;
-  max-height: 70vh;
+  height: 70vh;        /* fixed, not max-height */
   display: flex;
   flex-direction: column;
   box-shadow: 0 32px 96px rgba(0, 0, 0, 0.9);
