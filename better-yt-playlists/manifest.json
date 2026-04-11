@@ -22,6 +22,6 @@
   },
   "oauth2": {
     "client_id": "639571997729-31hdkv0akbqupgfok23go7t82166hkd1.apps.googleusercontent.com",
-    "scopes": ["https://www.googleapis.com/auth/youtube.readonly"]
+    "scopes": ["https://www.googleapis.com/auth/youtube.readonly", "https://www.googleapis.com/auth/youtube.force-ssl"]
   }
 }
